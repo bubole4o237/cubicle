@@ -10,5 +10,5 @@ setupExpress(app);
 require('./config/express')(app);
 
 app.use(routes);
- 
+  
 app.listen(config.PORT, () => console.log(`The server is running on port ${config.PORT}...`));
