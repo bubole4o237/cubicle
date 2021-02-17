@@ -30,4 +30,4 @@ function createCube(data) {
 }
 
 
-module.exports = { createCube };
+module.exports = { createCube, getAllCubes };
