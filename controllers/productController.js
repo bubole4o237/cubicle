@@ -5,7 +5,8 @@ const validateProduct = require('./helpers/productHelpers');
 const router = Router();
 
 router.get('/', (req, res) => {
-    let products = productService.getAllCubes();
+    let products = productService.getAllCubes(req.query);
+    
     res.render('home', { title: 'Home page', products });
 });
 

@@ -4,8 +4,22 @@ const fs = require('fs/promises');
 const path = require('path');
 let productData = require('../config/products.json');
 
-function getAllCubes() {
-    return productData;
+function getAllCubes(query) {
+    let result = productData;
+
+    if (query.search) {
+        result = result.filter(p => p.name.toLowerCase().includes(query.search.toLowerCase()));
+    }
+
+    if (query.from) {
+        result = result.filter(p => Number(p.level) >= query.from);
+    }
+
+    if (query.to) {
+        result = result.filter(p => Number(p.level) <= query.to);
+    }
+
+    return result;
 }
 
 function getOne(id) {
