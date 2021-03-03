@@ -8,6 +8,7 @@ const setupExpress = require('./config/express');
 setupExpress(app); 
 */          // The next line do the same thing like the 2 lines above
 require('./config/express')(app);
+require('./config/mongoose')(app);
 
 app.use(routes);
   
