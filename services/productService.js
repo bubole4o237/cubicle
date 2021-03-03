@@ -34,6 +34,12 @@ function getOne(id) {
     return Cube.findById(id).lean();
 }
 
+function getOneWithAccessories(id) {
+    return Cube.findById(id)
+        .populate('accessories')
+        .lean();
+};
+
 function createCube(data) {
     let cube = new Cube(data);
     //     data.name,
@@ -61,11 +67,17 @@ async function attachAccessory(productId, accessoryId) {
     let accessory = await Accessory.findById(accessoryId);
 
     // console.log(product);
-    // console.log(accessory);
 
+   
     product.accessories.push(accessory);
-    console.log(product);
+
     return product.save();
 }
 
-module.exports = { createCube, getAllCubes, getOne, attachAccessory };
+module.exports = {
+    createCube,
+    getAllCubes,
+    getOne,
+    getOneWithAccessories,
+    attachAccessory
+};

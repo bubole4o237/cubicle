@@ -39,7 +39,8 @@ router.post('/create', validateProduct, async (req, res) => {
 router.get('/details/:productId', async (req, res) => {
     const productId = req.params.productId;
 
-    let cube = await productService.getOne(productId);
+    let cube = await productService.getOneWithAccessories(productId);
+    // console.log(cube);
 
     res.render('details', { title: 'Product details', cube });
 });
@@ -49,7 +50,8 @@ router.get('/:productId/attach', async (req, res) => {
     const productId = req.params.productId;
 
     let cube = await productService.getOne(productId);
-    let accessories = await accessoryService.getAll();
+    let accessories = await accessoryService.getAllUnattached(cube.accessories);
+    
 
     // console.log(cube.accessories);
 
@@ -60,14 +62,14 @@ router.get('/:productId/attach', async (req, res) => {
 
 router.post('/:productId/attach', async (req, res) => {
     let productId = req.params.productId;
-    let accessory = req.body.accessory;
+    let accessoryId = req.body.accessory;
 
-    productService.attachAccessory(productId, accessory)
+    productService.attachAccessory(productId, accessoryId)
         .then(() => res.redirect(`/product/details/${productId}`));
 
     // let cube = await productService.getOne(productId);
     // let arrayAccessories = cube.accessories;
-    // arrayAccessories.push(accessory);
+    // arrayAccessories.push(accessoryId);
     // cube.accessories = arrayAccessories;
 
     // console.log(cube);

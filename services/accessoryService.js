@@ -12,11 +12,17 @@ function getAll() {
     let accessories = Accessory.find({}).lean();
 
     return accessories;
+};
+
+
+function getAllUnattached(ids) {
+    return Accessory.find({ _id: { $nin: ids } }).lean();
 }
 
 
 
 module.exports = {
     create,
-    getAll
+    getAll,
+    getAllUnattached
 };
